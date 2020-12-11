@@ -34,7 +34,6 @@ function calc(passport) {
 const seats = data.map(calc).sort((a, b) => a - b)
 for (i = 1; i < seats.length; i++) {
     if (seats[i] !== seats[i - 1] + 1) {
-        // console.log(seats[i - 1], seats[i])
         console.log(seats[i - 1] + 1)
     }
 }

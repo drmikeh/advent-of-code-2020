@@ -1,13 +1,5 @@
 const data = require('../file-reader.js').readFile('data.txt', '\n', String)
 
-let debug = false
-
-function log(...args) {
-    if (debug) {
-        console.log(...args)
-    }
-}
-
 const containers = data.map(rule => {
     let [name, contents] = rule.split('contain')
     name = name.trim().replace('bags', 'bag')
@@ -22,21 +14,6 @@ const containers = data.map(rule => {
     })
     return { name, contents }
 })
-
-log(JSON.stringify(containers, null, 2))
-
-function replacer(key, value) {
-    const originalObject = this[key];
-    if (originalObject instanceof Map) {
-        return [...originalObject]
-    } else if (key === 'parent') {
-        return 'parent'
-    } else if (key === 'backEdges') {
-        return 'backEdges'
-    } else {
-        return value;
-    }
-}
 
 // recursively find a node, searching through the nodes array
 // and all of those node's descendants
@@ -73,7 +50,6 @@ function convertToGraph(containers, nodes = [], parent = null, depth = 0) {
 const sourceNodes = convertToGraph(containers)
 
 function findRoots(nodes, child, roots = new Set()) {
-    log(child)
     const parents = Array.from(child.backEdges.keys())
     parents.forEach(parent => {
         roots.add(parent)

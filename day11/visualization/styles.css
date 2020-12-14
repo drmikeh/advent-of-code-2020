@@ -1,0 +1,15 @@
+html {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    text-align: center;
+}
+
+#grid {
+    margin: auto;
+}
+
+.changed {
+    color: red;
+}

@@ -1068,26 +1068,3 @@ let grid = [
     ]
 ]
 
-const NUM_ROWS = grid.length
-const NUM_COLS = grid[0].length
-
-const changeCache = createArray([NUM_ROWS, NUM_COLS], false)
-
-const gridElement = document.getElementById('grid')
-
-function renderGrid() {
-    gridElement.innerHTML = null
-    for (let r = 0; r < NUM_ROWS; r++) {
-        const line = document.createElement('tr')
-        for (let c = 0; c < NUM_COLS; c++) {
-            const el = document.createElement('td')
-            const value = grid[r][c]
-            el.innerHTML = value
-            if (changeCache[r][c]) {
-                el.className = 'changed'
-            }
-            line.appendChild(el)
-        }
-        gridElement.appendChild(line)
-    }
-}

@@ -30,9 +30,7 @@ function isValid(row, col) {
     return 0 <= row && row < NUM_ROWS && 0 <= col && col < NUM_COLS
 }
 
-let zcount = 0
 function getNumOccupied(grid, ri, ci, lookOverFloor) {
-    zcount++
     let total = 0
 
     for (let dir = 0; dir < NUM_DIRS; dir++) {
@@ -57,7 +55,7 @@ function main(grid, maxAllowed, lookOverFloor) {
     let changed = null
     let round = 1
     do {
-        console.log(`--- Round ${round++} ---`)
+        log(`--- Round ${round++} ---`)
         changed = false
         let nextArea = grid.map(row => row.map(cell => cell)) // deep copy of 2D array
         for (let ri = 0; ri < NUM_ROWS; ri++) {
@@ -82,6 +80,5 @@ function countOccupiedSeats(grid) {
     return grid.reduce((sum, row) => sum + row.reduce((rowSum, cell) => rowSum + (cell === OCCUPIED_SEAT ? 1 : 0), 0), 0)
 }
 
-// console.log('Part 1:', countOccupiedSeats(main(input, 4, false)))
+console.log('Part 1:', countOccupiedSeats(main(input, 4, false)))
 console.log('Part 2:', countOccupiedSeats(main(input, 5, true)))
-console.log({ zcount })

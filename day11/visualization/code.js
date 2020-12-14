@@ -6,12 +6,18 @@ const NUM_DIRS = 8
 const ROW_DIRS = [-1, +1, +0, +0, -1, -1, +1, +1]
 const COL_DIRS = [+0, +0, -1, +1, -1, +1, -1, +1]
 
+const summaryElement = document.getElementById('summary')
+
 function sleep(millis) {
     return new Promise(res => setTimeout(res, millis))
 }
 
 function isValid(row, col) {
     return 0 <= row && row < NUM_ROWS && 0 <= col && col < NUM_COLS
+}
+
+function countOccupiedSeats() {
+    return grid.reduce((sum, row) => sum + row.reduce((rowSum, cell) => rowSum + (cell === OCCUPIED_SEAT ? 1 : 0), 0), 0)
 }
 
 function getNumOccupied(ri, ci, lookOverFloor) {
@@ -67,10 +73,14 @@ async function main(maxAllowed, lookOverFloor) {
         let nextArea
         ({ nextArea, round, changed } = step(round, changed, lookOverFloor, maxAllowed))
         grid = nextArea
-        renderGrid(grid)
+        updateGrid(grid)
+        const occupiedSeats = countOccupiedSeats()
+        summaryElement.innerHTML = `Occupied seats: ${occupiedSeats}`
         await sleep(0)
     } while (changed)
-    return grid
 }
 
 main(5, true)
+
+const occupiedSeats = countOccupiedSeats()
+summaryElement.innerHTML = `Occupied seats: ${occupiedSeats}`

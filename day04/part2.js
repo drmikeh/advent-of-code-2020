@@ -1,11 +1,11 @@
-const data = require('../file-reader.js').readFile('input.txt', '\n', String, v => true)
+const input = require('../file-reader.js').readFile('input.txt', '\n', String, v => true)
 
 function readPassports() {
     const passports = [];
-    for (lineIndex = 0; lineIndex < data.length; lineIndex++) {
+    for (lineIndex = 0; lineIndex < input.length; lineIndex++) {
         const passport = {}
-        while (data[lineIndex]) {
-            const parts = data[lineIndex].split(' ')
+        while (input[lineIndex]) {
+            const parts = input[lineIndex].split(' ')
             parts.forEach(p => {
                 const [key, value] = p.split(':')
                 passport[key] = value

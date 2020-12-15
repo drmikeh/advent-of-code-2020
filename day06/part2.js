@@ -1,12 +1,12 @@
-const data = require('../file-reader.js').readFile('input.txt', '\n', String, v => true)
+const input = require('../file-reader.js').readFile('input.txt', '\n', String, v => true)
 
 // group lines using a blank line as the separator
 function readGroups() {
     const groups = [];
-    for (lineIndex = 0; lineIndex < data.length; lineIndex++) {
+    for (lineIndex = 0; lineIndex < input.length; lineIndex++) {
         const group = []
-        while (data[lineIndex]) {
-            group.push(data[lineIndex++])
+        while (input[lineIndex]) {
+            group.push(input[lineIndex++])
         }
         groups.push(group)
     }

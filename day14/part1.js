@@ -1,7 +1,5 @@
 const input = require('../file-reader.js').readFile('input.txt', '\n', String)
 
-console.log(input)
-
 const instrs = input.map(line => {
     if (line.startsWith("mask")) {
         const [, mask] = line.split(" = ")
@@ -11,8 +9,6 @@ const instrs = input.map(line => {
         return { address: Number(address), value: Number(value) }
     }
 })
-
-console.log(instrs)
 
 const mem = new Map()
 let mask = null

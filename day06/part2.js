@@ -1,4 +1,4 @@
-const data = require('../file-reader.js').readFile('data.txt', '\n', String, v => true)
+const data = require('../file-reader.js').readFile('input.txt', '\n', String, v => true)
 
 // group lines using a blank line as the separator
 function readGroups() {
@@ -29,4 +29,4 @@ function doIntersections(groups) {
 
 const groups = readGroups()
 const intersections = doIntersections(groups)
-console.log(intersections.reduce((sum, i) => sum + i.length, 0))
+console.log('Part 2:', intersections.reduce((sum, i) => sum + i.length, 0))

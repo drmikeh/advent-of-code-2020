@@ -1,4 +1,4 @@
-const data = require('../file-reader.js').readFile('data.txt', '\n', String)
+const input = require('../file-reader.js').readFile('input.txt', '\n', String)
 const assert = require('assert')
 
 function binarySearch(min, max, letters, lowerChar, upperChar) {
@@ -31,9 +31,9 @@ function calc(passport) {
     return row * 8 + col
 }
 
-const seats = data.map(calc).sort((a, b) => a - b)
+const seats = input.map(calc).sort((a, b) => a - b)
 for (i = 1; i < seats.length; i++) {
     if (seats[i] !== seats[i - 1] + 1) {
-        console.log(seats[i - 1] + 1)
+        console.log('Part 2:', seats[i - 1] + 1)
     }
 }

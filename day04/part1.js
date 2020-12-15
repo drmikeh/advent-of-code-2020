@@ -1,4 +1,4 @@
-const data = require('../file-reader.js').readFile('data.txt', '\n', String, v => true)
+const data = require('../file-reader.js').readFile('input.txt', '\n', String, v => true)
 
 function readPassports() {
     const passports = [];
@@ -45,4 +45,4 @@ function countValidPassports(passports) {
 }
 
 const passports = readPassports();
-console.log(countValidPassports(passports))
+console.log('Part 1:', countValidPassports(passports))

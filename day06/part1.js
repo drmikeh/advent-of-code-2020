@@ -1,4 +1,4 @@
-const data = require('../file-reader.js').readFile('data.txt', '\n', String, v => true)
+const data = require('../file-reader.js').readFile('input.txt', '\n', String, v => true)
 
 // group lines using a blank line as the separator
 function readGroups() {
@@ -20,4 +20,4 @@ function toSets(groups) {
 
 const groups = readGroups()
 const sets = toSets(groups)
-console.log(sets.reduce((sum, g) => sum + g.size, 0))
+console.log('Part 1:', sets.reduce((sum, g) => sum + g.size, 0))

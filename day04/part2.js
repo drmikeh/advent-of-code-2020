@@ -1,4 +1,4 @@
-const data = require('../file-reader.js').readFile('data.txt', '\n', String, v => true)
+const data = require('../file-reader.js').readFile('input.txt', '\n', String, v => true)
 
 function readPassports() {
     const passports = [];
@@ -17,97 +17,68 @@ function readPassports() {
     return passports
 }
 
-function isValid(passport) {
+const validators = {
+    byr: function (value) {                     // byr(Birth Year) - four digits; at least 1920 and at most 2002.
+        const year = Number(value)
+        return year >= 1920 && year <= 2002
+    },
+    iyr: function (value) {                     // iyr(Issue Year) - four digits; at least 2010 and at most 2020.
+        const year = Number(value)
+        return year >= 2010 && year <= 2020
+    },
+    eyr: function (value) {                     // eyr(Expiration Year) - four digits; at least 2020 and at most 2030.
+        const year = Number(value)
+        return year >= 2020 && year <= 2030
+    },
+    hgt: function (value) {                                     // hgt(Height) - a number followed by either cm or in:
+        const h = Number(value.slice(0, value.length - 2))
+        const units = value.slice(value.length - 2)
+        if (['cm', 'in'].includes(units) === false) {
+            return false;
+        }
+        if (units === 'cm' && (h < 150 || h > 193)) {           // if cm, the number must be at least 150 and at most 193.
+            return false
+        } else if (units === 'in' && (h < 59 || h > 76)) {      // if in, the number must be at least 59 and at most 76.
+            return false
+        }
+        return true
+    },
+    hcl: function (value) {                  // hcl(Hair Color) - a # followed by exactly six characters 0 - 9 or a - f.
+        return /^#[0-9a-f]{6}/i.test(value)
+    },
+    ecl: function (value) {                 // ecl(Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+        return ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(value)
+    },
+    pid: function (value) {                 // pid(Passport ID) - a nine - digit number, including leading zeroes.
+        return value.length === 9 && isNaN(Number(value)) === false
+    },
+    cid: function (value) {                 // cid(Country ID) - ignored, missing or not.
+        return true
+    }
+}
 
-    const requiredFields = [
-        'byr',    // Birth Year
-        'iyr',    // Issue Year
-        'eyr',    // Expiration Year
-        'hgt',    // Height
-        'hcl',    // Hair Color
-        'ecl',    // Eye Color
-        'pid',    // Passport ID
-        // 'cid',    // Country ID
-    ]
-    for (let i = 0; i < requiredFields.length; i++) {
-        const field = requiredFields[i]
+const REQUIRED_FIELDS = [
+    'byr',    // Birth Year
+    'iyr',    // Issue Year
+    'eyr',    // Expiration Year
+    'hgt',    // Height
+    'hcl',    // Hair Color
+    'ecl',    // Eye Color
+    'pid',    // Passport ID
+    // 'cid',    // Country ID
+]
+
+function isValid(passport) {
+    for (let i = 0; i < REQUIRED_FIELDS.length; i++) {
+        const field = REQUIRED_FIELDS[i]
         const value = passport[field]
         if (!value) {
             return false;
         }
-
-        let year
-        switch (field) {
-            // byr (Birth Year) - four digits; at least 1920 and at most 2002.
-            case 'byr':
-                year = Number(value)
-                if (year < 1920 || year > 2002) {
-                    return false;
-                }
-                break
-
-            // iyr(Issue Year) - four digits; at least 2010 and at most 2020.
-            case 'iyr':
-                year = Number(value)
-                if (year < 2010 || year > 2020) {
-                    return false;
-                }
-                break
-
-            // eyr(Expiration Year) - four digits; at least 2020 and at most 2030.
-            case 'eyr':
-                year = Number(value)
-                if (year < 2020 || year > 2030) {
-                    return false;
-                }
-                break
-
-            // hgt(Height) - a number followed by either cm or in:
-            // if cm, the number must be at least 150 and at most 193.
-            // if in, the number must be at least 59 and at most 76.
-            case 'hgt':
-                const h = Number(value.slice(0, value.length - 2))
-                const units = value.slice(value.length - 2)
-                if (['cm', 'in'].includes(units) === false) {
-                    return false;
-                }
-                if (units === 'cm' && (h < 150 || h > 193)) {
-                    return false
-                } else if (units === 'in' && (h < 59 || h > 76)) {
-                    return false
-                }
-                break
-
-            // hcl(Hair Color) - a # followed by exactly six characters 0 - 9 or a - f.
-            case 'hcl':
-                if (/^#[0-9a-f]{6}/i.test(value) === false) {
-                    return false
-                }
-                break
-
-            // ecl(Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-            case 'ecl':
-                if (['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(value) === false) {
-                    return false
-                }
-                break;
-
-            // pid(Passport ID) - a nine - digit number, including leading zeroes.
-            case 'pid':
-                if (value.length !== 9 || isNaN(Number(value))) {
-                    return false;
-                }
-                break;
-
-            // cid(Country ID) - ignored, missing or not.
-            case 'cid':
-                break;
-
-            default:
-                throw new Error(`Unrecognized field: ${field}`)
+        if (!validators[field](value)) {
+            return false
         }
     }
-
     return true;
 }
 
@@ -118,4 +89,4 @@ function countValidPassports(passports) {
 }
 
 const passports = readPassports();
-console.log(countValidPassports(passports))
+console.log('Part 2:', countValidPassports(passports))

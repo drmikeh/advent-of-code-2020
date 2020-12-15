@@ -1,18 +1,17 @@
-const data = require('../file-reader.js').readFile('data.txt').sort((a, b) => a - b)
+const input = require('../file-reader.js').readFile('input.txt').sort((a, b) => a - b)
 
-data.unshift(0)
-data.push(data[data.length - 1] + 3)
-// console.log(data)
+input.unshift(0)
+input.push(input[input.length - 1] + 3)
 
 function part1() {
     let numOneJolts = 0
     let numThreeJolts = 0
-    for (let i = 1; i < data.length; i++) {
-        const diff = data[i] - data[i - 1]
+    for (let i = 1; i < input.length; i++) {
+        const diff = input[i] - input[i - 1]
         if (diff === 1) numOneJolts++
         else if (diff === 3) numThreeJolts++
     }
-    console.log({ numOneJolts, numThreeJolts })
+    // console.log({ numOneJolts, numThreeJolts })
     return numOneJolts * numThreeJolts
 }
 

@@ -1,6 +1,6 @@
-const data = require('../file-reader.js').readFile('data.txt', '\n', String)
+const input = require('../file-reader.js').readFile('input.txt', '\n', String)
 
-const containers = data.map(rule => {
+const containers = input.map(rule => {
     let [name, contents] = rule.split('contain')
     name = name.trim().replace('bags', 'bag')
     contents = contents.trim().split(', ').map(c => {

@@ -1,11 +1,11 @@
-const data = require('../file-reader.js').readFile('data.txt')
+const input = require('../file-reader.js').readFile('input.txt')
 
 function findMatchingTriplet(sum) {
-    for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < data.length; j++) {
-            for (let k = 0; k < data.length; k++) {
-                if (data[i] + data[j] + data[k] === sum) {
-                    return [data[i], data[j], data[k]]
+    for (let i = 0; i < input.length; i++) {
+        for (let j = 0; j < input.length; j++) {
+            for (let k = 0; k < input.length; k++) {
+                if (input[i] + input[j] + input[k] === sum) {
+                    return [input[i], input[j], input[k]]
                 }
             }
         }
@@ -14,4 +14,4 @@ function findMatchingTriplet(sum) {
 }
 
 const triplet = findMatchingTriplet(2020)
-console.log(triplet[0] * triplet[1] * triplet[2])
+console.log('Part 2:', triplet[0] * triplet[1] * triplet[2])

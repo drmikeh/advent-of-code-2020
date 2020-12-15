@@ -1,10 +1,10 @@
-const data = require('../file-reader.js').readFile('data.txt')
+const input = require('../file-reader.js').readFile('input.txt')
 
 function findMatchingPair(sum) {
-    for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < data.length; j++) {
-            if (data[i] + data[j] === sum) {
-                return [data[i], data[j]]
+    for (let i = 0; i < input.length; i++) {
+        for (let j = 0; j < input.length; j++) {
+            if (input[i] + input[j] === sum) {
+                return [input[i], input[j]]
             }
         }
     }
@@ -12,4 +12,4 @@ function findMatchingPair(sum) {
 }
 
 const pair = findMatchingPair(2020)
-console.log(pair[0] * pair[1])
+console.log('Part 1', pair[0] * pair[1])

@@ -1,6 +1,6 @@
 const { exec } = require('child_process')
 
-const data = require('../file-reader.js').readFile('data.txt', '\n', String)
+const input = require('../file-reader.js').readFile('input.txt', '\n', String)
 
 let debug = false
 function log(...args) {
@@ -8,7 +8,7 @@ function log(...args) {
 }
 
 function makeOperations() {
-    const operations = data.map(line => {
+    const operations = input.map(line => {
         const [opcode, arg] = line.split(' ')
         return { opcode, arg: Number(arg), visited: 0, sequence: null }
     })

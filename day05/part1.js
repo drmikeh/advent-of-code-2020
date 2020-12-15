@@ -1,4 +1,4 @@
-const data = require('../file-reader.js').readFile('data.txt', '\n', String)
+const input = require('../file-reader.js').readFile('input.txt', '\n', String)
 const assert = require('assert')
 
 function binarySearch(min, max, letters, lowerChar, upperChar) {
@@ -31,10 +31,9 @@ function calc(passport) {
     return row * 8 + col
 }
 
-// console.log(calc('FBFBBFFRLR'))
-const max = data.reduce((max, passport) => {
+const max = input.reduce((max, passport) => {
     const v = calc(passport)
     return max > v ? max : v
 })
 
-console.log(max)
+console.log('Part 1:', max)

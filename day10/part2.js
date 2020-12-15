@@ -1,18 +1,18 @@
-const data = require('../file-reader.js').readFile('data.txt').sort((a, b) => a - b)
+const input = require('../file-reader.js').readFile('input.txt').sort((a, b) => a - b)
 
-data.unshift(0)
-data.push(data[data.length - 1] + 3)
+input.unshift(0)
+input.push(input[input.length - 1] + 3)
 
 const cache = {}
 
 function part2(n = 0) {
-    if (n === data.length - 1) return 1
+    if (n === input.length - 1) return 1
     if (n in cache) return cache[n]
 
     let ans = 0
-    const upper = data.length < (n + 3) ? data.length : n + 3
+    const upper = input.length < (n + 3) ? input.length : n + 3
     for (let i = n + 1; i <= upper; i++) {
-        if (data[i] - data[n] <= 3) {
+        if (input[i] - input[n] <= 3) {
             ans += part2(i)
         }
     }

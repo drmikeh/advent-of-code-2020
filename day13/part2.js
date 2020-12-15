@@ -14,4 +14,4 @@ for (let n = 1; n < buses.length; n++) {
     step *= id;
 }
 
-console.log(time)
+console.log('Part 2:', time)

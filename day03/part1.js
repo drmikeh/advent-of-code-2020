@@ -1,8 +1,8 @@
-const data = require('../file-reader.js').readFile('data.txt', '\n', line => line.split(''))
+const input = require('../file-reader.js').readFile('input.txt', '\n', line => line.split(''))
 let treeCount = 0
-for (let rowIndex = 0, colIndex = 0; rowIndex < data.length; rowIndex++, colIndex += 3) {
-    colIndex = colIndex % data[rowIndex].length
-    const value = data[rowIndex][colIndex]
+for (let rowIndex = 0, colIndex = 0; rowIndex < input.length; rowIndex++, colIndex += 3) {
+    colIndex = colIndex % input[rowIndex].length
+    const value = input[rowIndex][colIndex]
     treeCount += value === '#' ? 1 : 0
 }
-console.log(treeCount)
+console.log('Part 1:', treeCount)

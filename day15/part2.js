@@ -1,29 +1,19 @@
 const input = [2, 0, 6, 12, 1, 3]
+const map = new Map()
 
-let map = new Map()
-input.forEach((v, i) => map.set(v, [i]))
+input.forEach((n, i) => map.set(n, i))
 
-function updateMap(map, k, v) {
-    const arr = map.get(k)
-    if (arr) arr.push(v)
-    else map.set(k, [v])
-}
+let nextValue = 0
 
-let lastValue = Array.from(map.keys()).pop();
-
-for (let index = input.length; index < 30000000; index++) {
-    const lastIndex = map.get(lastValue) || null
-    if (!lastIndex) {
-        lastValue = 0
-        updateMap(map, lastValue, index)
-    }
-    else if (lastIndex.length === 1) {
-        lastValue = index - lastIndex[lastIndex.length - 1] - 1
-        updateMap(map, lastValue, index)
+for (let index = input.length; index < 30000000 - 1; index++) {
+    const previousIndex = map.get(nextValue)
+    if (previousIndex !== undefined) {
+        map.set(nextValue, index)
+        nextValue = index - previousIndex
     } else {
-        lastValue = index - lastIndex[lastIndex.length - 2] - 1
-        updateMap(map, lastValue, index)
+        map.set(nextValue, index)
+        nextValue = 0
     }
 }
 
-console.log(lastValue)
+console.log('Part 2:', nextValue)       // 3718541
